@@ -1,1 +1,23 @@
+# define variables
+resourcegroup="rg-bbb-001"
+location="uksouth"
+vnet="vnet-bbb-001"
+vnetpfx="10.2.0.0/16"
+snet="snet-bbb-001"
+snetpfx="10.2.0.0/24"
+nsg="nsg-bbb-001"
 
+# create resource group
+az group create -n $resourcegroup --location $location
+
+# create vnet and subnet
+az network vnet create -g $resourcegroup -n $vnet --location $location --address-prefixes $vnetpfx --subnet-name $snet --subnet-prefix $snetpfx
+
+# create nsg
+az network nsg create -g $resourcegroup -n $nsg
+
+# associate nsg with subnet
+az network vnet subnet update -g $resourcegroup -n $snet --vnet-name $vnet --network-security-group $nsg
+
+# delete all resources
+az group delete -n $resourcegroup
