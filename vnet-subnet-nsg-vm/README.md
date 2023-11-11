@@ -4,4 +4,4 @@ blah
 
 ## Lab Topology
 
-![](images/diagram.png)
+![](images/vnet-subnet-nsg-vm.png)
