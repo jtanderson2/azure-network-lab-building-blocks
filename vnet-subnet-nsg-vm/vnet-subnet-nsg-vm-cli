@@ -15,7 +15,6 @@ vmsize="Standard_B1ls"
 vmuser="azureuser"
 vmpassword="Msft123Msft123"
 
-
 # create resource group
 az group create -n $resourcegroup --location $location
 
