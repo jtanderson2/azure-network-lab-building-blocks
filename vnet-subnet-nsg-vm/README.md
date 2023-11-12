@@ -8,7 +8,8 @@ A basic building block that will provision the following topology with Azure CLI
 
 ## Notes
 
-* Variables defined at start of script, change as required; they are not persisent after the az cli session has ceased, so run again as required
+* Variables defined at start of script, change as required
+* The variable are not persisent after the az cli session has ceased, so run again in new session as required
 * VM provisioned with auto-shutdown configured for 22:00 UTC
 * NSG rule provisioned to allow SSH access from anywhere for admin access
 
