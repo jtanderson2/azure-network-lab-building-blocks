@@ -69,7 +69,7 @@ az vm create -g $resourcegroup -n $vm2name --image $vmimage --size $vmsize --adm
 az vm auto-shutdown -g $resourcegroup -n $vm2name --time 2200
 
 
-### install web server ###
+### install web server (not working at present; install manually on servers) ###
 
 # install nginx webserver on vm1
 az vm run-command invoke -g $resourcegroup -n $vm1name --command-id RunShellScript --scripts "sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd"
