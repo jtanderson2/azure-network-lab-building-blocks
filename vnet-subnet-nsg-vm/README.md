@@ -10,7 +10,7 @@ A basic building block that will provision the following topology with az cli:
 
 * Variables defined at start of script, change as required
 * VM is provisioned with auto-shutdown configured for 22:00 UTC
-* NSG rule is provisioned to allow SSH access from anywhere 
+* NSG rule is provisioned to allow SSH access from anywhere for admin access
 
 ## Provision
 
