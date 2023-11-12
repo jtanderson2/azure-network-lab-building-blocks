@@ -1,4 +1,4 @@
-# azure-network-lab-building-blocks
+# Azure Networking Lab Building Blocks
 
 Base building blocks for Azure lab/dev/test/poc environments provisioned with az cli... 
 
