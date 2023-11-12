@@ -4,7 +4,7 @@
 
 A basic building block that will provision the following topology with az cli:
 
-![](vnet-subnet-nsg-vm.png)
+![](vnet-subnet-nsg-vm.svc)
 
 ## Notes
 
