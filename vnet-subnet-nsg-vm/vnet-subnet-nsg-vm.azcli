@@ -45,18 +45,3 @@ az vm create -g $resourcegroup -n $vmname --image $vmimage --size $vmsize --admi
 az vm auto-shutdown -g $resourcegroup -n $vmname --time 2200
 
 
-### additonal commands ###
-
-# get public ip of vm
-az network public-ip show -g $resourcegroup -n $publicip --query "{address: ipAddress}"
-
-# stop vm
-az vm deallocate -g $resourcegroup -n $vmname --no-wait
-
-# start vm
-az vm start -g $resourcegroup -n $vmname --no-wait
-
-### destroy ###
-
-# delete all resources
-az group delete -n $resourcegroup
