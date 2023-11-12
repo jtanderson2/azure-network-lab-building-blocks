@@ -72,10 +72,10 @@ az vm deallocate -g $resourcegroup -n $vmname --no-wait
 # start vm
 az vm start -g $resourcegroup -n $vmname --no-wait
 
-# show commonly used vm images available in your region; the 'Urn' field in the output is what you use as the --image variable when creating a vm
+# show commonly used vm images available in your region; the 'Urn' field in the output is what to use as the --image variable when creating a vm
 az vm image list --location $location --output table
 
-# show vm sizes available in your region; the 'Name' field in the output is what you use as the --size variable when creating a vm
+# show vm sizes available in your region; the 'Name' field in the output is what to use as the --size variable when creating a vm
 az vm list-sizes --location $location --output table
 </pre>
 
