@@ -24,7 +24,7 @@ az network vnet create -g $resourcegroup -n $vnet --location $location --address
 # create nsg
 az network nsg create -g $resourcegroup -n $nsg
 
-# create nsg rule to allow ssh
+# create nsg rule to allow rdp
 az network nsg rule create -g $resourcegroup --nsg-name $nsg -n AllowRDP--priority 1000 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefixes $snetpfx --destination-port-range 3389 --access Allow --protocol Tcp --description "Allow RDP"
 
 # associate nsg with subnet
