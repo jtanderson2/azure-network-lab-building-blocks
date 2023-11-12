@@ -1,0 +1,98 @@
+### build ###
+
+# define global variables
+resourcegroup="rg-ccc-001"
+location="uksouth"
+vnet="vnet-ccc-001"
+vnetpfx="10.3.0.0/16"
+snet="snet-ccc-001"
+snetpfx="10.3.0.0/24"
+nsg="nsg-ccc-001"
+vmuser="azureuser"
+vmpassword="Msft123Msft123"
+vmimage="OpenLogic:CentOS:7.5:latest"
+vmsize="Standard_B1ls"
+
+# define vm1 variables
+vm1nic="nic-vm-ccc-001"
+vm1privateip="10.3.0.10"
+vm1publicip="pip-vm-ccc-001"
+vm1name="vm-ccc-001"
+
+# define vm2 variables
+vm2nic="nic-vm-ccc-002"
+vm2privateip="10.3.0.11"
+vm2publicip="pip-vm-ccc-002"
+vm2name="vm-ccc-002"
+
+# define elb variables
+elbname="elb-ccc-001"
+elbfrontendip="pip-elb-ccc-001"
+
+# create resource group
+az group create -n $resourcegroup --location $location
+
+# create vnet and subnet
+az network vnet create -g $resourcegroup -n $vnet --location $location --address-prefixes $vnetpfx --subnet-name $snet --subnet-prefix $snetpfx
+
+# create nsg
+az network nsg create -g $resourcegroup -n $nsg
+
+# create nsg rule to allow ssh and http
+az network nsg rule create -g $resourcegroup --nsg-name $nsg -n AllowSSH-HTTP --priority 1000 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefixes $snetpfx --destination-port-ranges 22 80 --access Allow --protocol Tcp --description "Allow SSH and HTTP"
+
+# associate nsg with subnet
+az network vnet subnet update -g $resourcegroup -n $snet --vnet-name $vnet --network-security-group $nsg
+
+# create public ip for vm1
+az network public-ip create -n $vm1publicip -g $resourcegroup --location $location --sku standard
+
+# create nic for vm1, create private ip and and assign public ip
+az network nic create -g $resourcegroup -n $vm1nic --location $location --subnet $snet --private-ip-address $vm1privateip --vnet-name $vnet --public-ip-address $vm1publicip
+
+#create linux vm1 and associate with nic
+az vm create -g $resourcegroup -n $vm1name --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $vm1nic
+
+#auto-shutdown vm1 at 10:00 UTC
+az vm auto-shutdown -g $resourcegroup -n $vm1name --time 2200
+
+# create public ip for vm2
+az network public-ip create -n $vm2publicip -g $resourcegroup --location $location --sku standard
+
+# create nic for vm2, create private ip and and assign public ip
+az network nic create -g $resourcegroup -n $vm2nic --location $location --subnet $snet --private-ip-address $vm2privateip --vnet-name $vnet --public-ip-address $vm2publicip
+
+#create linux vm2 and associate with nic
+az vm create -g $resourcegroup -n $vm2name --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $vm2nic
+
+#auto-shutdown vm2 at 10:00 UTC
+az vm auto-shutdown -g $resourcegroup -n $vm2name --time 2200
+
+
+### install web server ###
+
+# install nginx webserver on vm1
+az vm run-command invoke -g $resourcegroup -n $vm1name --command-id RunShellScript --scripts "sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd"
+
+# install nginx webserver on vm2
+az vm run-command invoke -g $resourcegroup -n $vm2name --command-id RunShellScript --scripts "sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd"
+
+
+### additonal commands ###
+
+# get public ip of vm
+az network public-ip show -g $resourcegroup -n $vm1publicip --query "{address: ipAddress}"
+az network public-ip show -g $resourcegroup -n $vm2publicip --query "{address: ipAddress}"
+
+# stop vm
+az vm deallocate -g $resourcegroup -n $vm1name --no-wait
+az vm deallocate -g $resourcegroup -n $vm2name --no-wait
+
+# start vm
+az vm start -g $resourcegroup -n $vm1name --no-wait
+az vm start -g $resourcegroup -n $vm2name --no-wait
+
+# delete all resources
+az group delete -n $resourcegroup
+
+
