@@ -2,7 +2,7 @@
 
 ## Overview
 
-A basic building block that will provision the following topology with Azure CLI:
+A basic building block as per diagram, provisioned with Azure CLI:
 
 ![](vnet-subnet-nsg-vm.png)
 
