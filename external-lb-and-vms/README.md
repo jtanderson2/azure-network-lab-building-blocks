@@ -17,6 +17,7 @@
 
 ## Useful Commands
 
+<pre lang="...">
 # get public ip of vm
 az network public-ip show -g $resourcegroup -n $vm1publicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n $vm2publicip --query "{address: ipAddress}"
@@ -28,10 +29,13 @@ az vm deallocate -g $resourcegroup -n $vm2name --no-wait
 # start vm
 az vm start -g $resourcegroup -n $vm1name --no-wait
 az vm start -g $resourcegroup -n $vm2name --no-wait
+</pre>
 
 ## Destroy
 
+<pre lang="...">
 # delete all resources
 az group delete -n $resourcegroup
+</pre>
 
 
