@@ -2,7 +2,7 @@
 
 ## Overview
 
-2 VMs running NGINX web server behind an external Load-Balancer, provisioned with Azure CLI.
+2 VMs running NGINX web server behind an external Load-Balancer, provisioned with Azure CLI:
 
 ![](external-lb-and-vms.png)
 
