@@ -56,5 +56,7 @@ az vm deallocate -g $resourcegroup -n $vmname --no-wait
 # start vm
 az vm start -g $resourcegroup -n $vmname --no-wait
 
+### destroy ###
+
 # delete all resources
 az group delete -n $resourcegroup
