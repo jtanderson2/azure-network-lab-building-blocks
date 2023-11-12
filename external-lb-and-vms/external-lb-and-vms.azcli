@@ -76,21 +76,3 @@ az vm run-command invoke -g $resourcegroup -n $vm1name --command-id RunShellScri
 
 # install nginx webserver on vm2
 az vm run-command invoke -g $resourcegroup -n $vm2name --command-id RunShellScript --scripts "sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd"
-
-
-### additonal commands ###
-
-# get public ip of vm
-az network public-ip show -g $resourcegroup -n $vm1publicip --query "{address: ipAddress}"
-az network public-ip show -g $resourcegroup -n $vm2publicip --query "{address: ipAddress}"
-
-# stop vm
-az vm deallocate -g $resourcegroup -n $vm1name --no-wait
-az vm deallocate -g $resourcegroup -n $vm2name --no-wait
-
-# start vm
-az vm start -g $resourcegroup -n $vm1name --no-wait
-az vm start -g $resourcegroup -n $vm2name --no-wait
-
-# delete all resources
-az group delete -n $resourcegroup
