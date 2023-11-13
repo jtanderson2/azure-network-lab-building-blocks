@@ -2,16 +2,15 @@
 
 ## Overview
 
-A basic building block as per diagram, provisioned with Azure CLI:
+A basic building block as per diagram; VNET, Subnet, NSG and a single VM 
 
 ![](vnet-subnet-nsg-vm.png)
 
 ## Notes
 
 * Variables defined at start of script, change as required
-* Variables are not persisent after the az cli session has ceased, run section again in new session if required
-* VM provisioned with auto-shutdown configured for 22:00 UTC
-* NSG rule provisioned to allow SSH access from anywhere for immediate admin access via the public IP
+* VM provisioned with auto-shutdown at 22:00 UTC
+* NSG rule provisioned to allow SSH access from anywhere for admin access via the public IP
 
 ## Provision
 
