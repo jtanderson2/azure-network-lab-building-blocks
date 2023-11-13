@@ -10,7 +10,7 @@ A basic building block as per diagram; VNET, Subnet, NSG and a single VM
 
 * Variables defined at start of script, change as required
 * VM provisioned with auto-shutdown at 22:00 UTC
-* NSG rule provisioned to allow SSH access from anywhere for admin access via the public IP
+* NSG rule provisioned to allow SSH admin access
 
 ## Provision
 
