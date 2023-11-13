@@ -100,6 +100,14 @@ az network lb probe create -g $resourcegroup --lb-name $elbname -n $elbprobe1 --
 az network lb rule create -g $resourcegroup --lb-name $elbname -n $elbrule --protocol Tcp --frontend-ip $elbfrontend --frontend-port 80 --backend-pool-name $elbbackend --backend-port 80
 </pre>
 
+## Install Web Server on VMs
+SSH to each VM and run the following command (or use the serial console from the portal):
+
+<pre lang="...">
+sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd
+</pre>
+
+This will take a little while to run through. Once complete, the Apache start page should be available via the Load-Balancers' public IP, load-balanced between the 2 VMs.
 
 ## Useful Commands
 
