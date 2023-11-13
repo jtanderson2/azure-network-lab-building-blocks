@@ -6,5 +6,5 @@ In this repo:
 
 * [**VNET / Subnet / NSG / VM**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/vnet-subnet-nsg-vm)
 * [**External Load-Balancer and VMs with Web Server**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/external-lb-and-vms)
-* S22 VPN to OnPrem (coming soon...)
+* S2S VPN to OnPrem (coming soon...)
 
