@@ -1,5 +1,3 @@
-### build ###
-
 # define global variables
 resourcegroup="rg-ccc-001"
 location="uksouth"
@@ -27,7 +25,11 @@ vm2name="vm-ccc-002"
 
 # define elb variables
 elbname="elb-ccc-001"
-elbfrontendip="pip-elb-ccc-001"
+elbpublicip="pip-elb-ccc-001"
+elbfrontend="fe-elb-ccc-001"
+elbbackend="be-elb-ccc-001"
+elbprobe1="probe-http"
+elbrule="rule-http"
 
 # create resource group
 az group create -n $resourcegroup --location $location
@@ -67,12 +69,15 @@ az vm create -g $resourcegroup -n $vm2name --image $vmimage --size $vmsize --adm
 
 #auto-shutdown vm2 at 10:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $vm2name --time 2200
+  
+# create external load-balancer
+az network lb create -g $resourcegroup -n $elbname --location $location --sku standard --frontend-ip-name $elbfrontend --public-ip-address $elbpublicip --backend-pool-name $elbbackend
 
+# update load-balancer backend pool
+az network lb address-pool update -g $resourcegroup --lb-name $elbname -n $elbbackend --vnet $vnet --backend-addresses "[{name:addr1,ip-address:$vm1privateip},{name:addr2,ip-address:$vm2privateip,subnet:$snet}]"
 
-### install web server (not working at present; install manually on servers) ###
+# configure load-balancer http probe
+az network lb probe create -g $resourcegroup --lb-name $elbname -n $elbprobe1 --protocol http --port 80 --path /
 
-# install nginx webserver on vm1
-az vm run-command invoke -g $resourcegroup -n $vm1name --command-id RunShellScript --scripts "sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd"
-
-# install nginx webserver on vm2
-az vm run-command invoke -g $resourcegroup -n $vm2name --command-id RunShellScript --scripts "sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd"
+# configure load-balancer rule
+az network lb rule create -g $resourcegroup --lb-name $elbname -n $elbrule --protocol Tcp --frontend-ip $elbfrontend --frontend-port 80 --backend-pool-name $elbbackend --backend-port 80
