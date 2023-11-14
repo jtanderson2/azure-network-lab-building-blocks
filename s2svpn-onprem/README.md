@@ -15,7 +15,7 @@ Use [this](https://github.com/dmauser/opnazure) excellent template from Daniel M
 
 Hit the 'Deploy to Azure' button from the repo which just works out the box. The only parameter you need to add in the portal is the resource group; create a new group named **rg-vpn-001** then accept all other defaults then **Create**
 
-## Deploy the
+## Deploy the Rest
 > The variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
 
 <pre lang="...">
