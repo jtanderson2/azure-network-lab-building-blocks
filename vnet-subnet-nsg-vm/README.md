@@ -10,7 +10,7 @@ A basic building block as per diagram; VNET, Subnet, NSG and a single VM
 
 * Variables defined at start of script, change as required
 * VM provisioned with auto-shutdown at 22:00 UTC
-* NSG rule provisioned to allow SSH admin access
+* Provisions public IP for VM and NSG rule to allow SSH admin access (could use serial console instead!)
 
 ## Deploy
 > The variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
