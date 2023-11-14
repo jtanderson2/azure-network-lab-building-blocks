@@ -12,7 +12,7 @@ A basic building block as per diagram; VNET, Subnet, NSG and a single VM
 * VM provisioned with auto-shutdown at 22:00 UTC
 * NSG rule provisioned to allow SSH admin access
 
-## Provision
+## Deploy
 
 <pre lang="...">
 # define variables
