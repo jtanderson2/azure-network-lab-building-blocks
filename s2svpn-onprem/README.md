@@ -2,7 +2,7 @@
 
 VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem running an OPNsense firewall as the VPN termination device.
 
-tba
+![](s2svpn-onprem.png)
 
 ## Notes
 
