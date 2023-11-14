@@ -41,7 +41,7 @@ az network nic create -g $resourcegroup -n $nic --location $location --subnet $s
 #create linux vm and associate with nic
 az vm create -g $resourcegroup -n $vmname --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $nic
 
-#auto-shutdown vm at 10:00 UTC
+#auto-shutdown vm at 22:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $vmname --time 2200
 
 
