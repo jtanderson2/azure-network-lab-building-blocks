@@ -73,7 +73,7 @@ az network nic create -g $resourcegroup -n $nic --location $location --subnet $s
 # create azure-side linux vm and associate with nic
 az vm create -g $resourcegroup -n $vmname --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $nic
 
-# auto-shutdown azure-sidevm at 10:00 UTC
+# auto-shutdown azure-side vm at 22:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $vmname --time 2200
 
 # create an azure-side route-table
@@ -109,7 +109,7 @@ az network nic create -g $resourcegroup -n $opnnic --location $location --subnet
 # create onprem linux vm and associate with nic
 az vm create -g $resourcegroup -n $opnvmname --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $opnnic
 
-# auto-shutdown azure-sidevm at 10:00 UTC
+# auto-shutdown onprem vm at 22:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $opnvmname --time 2200
 
 # create an onprem route-table
