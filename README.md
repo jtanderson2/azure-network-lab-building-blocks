@@ -11,5 +11,6 @@ In this repo:
 
 * [**VNET / Subnet / NSG / VM**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/vnet-subnet-nsg-vm)
 * [**External Load-Balancer and VMs with Web Server**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/external-lb-and-vms)
-* S2S VPN to OnPrem (coming soon...)
+* [**S2S VPN to OnPrem**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/s2svpn-onprem)
+* Spoke-to-Spoke Routing via Hub NVA (coming soon...)
 
