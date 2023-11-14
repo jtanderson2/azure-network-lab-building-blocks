@@ -12,7 +12,7 @@
 * VMs provisioned with auto-shutdown at 22:00 UTC
 * NSGs rule provisioned to allow SSH admin access to VMs and HTTP testing through LB
 
-## Provision
+## Deploy
 
 <pre lang="...">
 # define global variables
