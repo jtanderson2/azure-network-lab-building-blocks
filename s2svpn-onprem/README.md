@@ -123,17 +123,19 @@ az network route-table route create -g $resourcegroup --route-table-name $opnrou
 
 <pre lang="...">
 # get public ip of vms & lb
-az network public-ip show -g $resourcegroup -n $vm1publicip --query "{address: ipAddress}"
-az network public-ip show -g $resourcegroup -n $vm2publicip --query "{address: ipAddress}"
-az network public-ip show -g $resourcegroup -n $elbpublicip --query "{address: ipAddress}"
+az network public-ip show -g $resourcegroup -n $publicip --query "{address: ipAddress}"
+az network public-ip show -g $resourcegroup -n $opnpublicip --query "{address: ipAddress}"
+az network public-ip show -g $resourcegroup -n $vpnpublicip --query "{address: ipAddress}"
+az network public-ip show -g $resourcegroup -n OPNsense-PublicIP --query "{address: ipAddress}"
+
   
 # stop vm
-az vm deallocate -g $resourcegroup -n $vm1name --no-wait
-az vm deallocate -g $resourcegroup -n $vm2name --no-wait
+az vm deallocate -g $resourcegroup -n $vmname --no-wait
+az vm deallocate -g $resourcegroup -n $opnvmname --no-wait
 
 # start vm
-az vm start -g $resourcegroup -n $vm1name --no-wait
-az vm start -g $resourcegroup -n $vm2name --no-wait
+az vm start -g $resourcegroup -n $vmname --no-wait
+az vm start -g $resourcegroup -n $opnvmname --no-wait
 </pre>
 
 ## Destroy
