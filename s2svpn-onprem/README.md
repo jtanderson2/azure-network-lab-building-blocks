@@ -31,7 +31,6 @@ vmimage="OpenLogic:CentOS:7.5:latest"
 vmsize="Standard_B1ls"
 vmuser="azureuser"
 vmpassword="Msft123Msft123"
-</pre>  
 
 # create resource group
 az group create -n $resourcegroup --location $location
@@ -68,7 +67,7 @@ az network public-ip create -n $vpnpublicip -g $resourcegroup --location $locati
 
 # create vpn gateway
 az network vnet-gateway create -g $resourcegroup -n $vpngw -l $location --public-ip-address $vpnpublicip --vnet $vnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --no-wait
-
+</pre>  
 
 ## Useful Commands
 
