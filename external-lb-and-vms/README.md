@@ -74,7 +74,7 @@ az network nic create -g $resourcegroup -n $vm1nic --location $location --subnet
 #create linux vm1 and associate with nic
 az vm create -g $resourcegroup -n $vm1name --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $vm1nic
 
-#auto-shutdown vm1 at 10:00 UTC
+#auto-shutdown vm1 at 22:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $vm1name --time 2200
 
 # create public ip for vm2
@@ -86,7 +86,7 @@ az network nic create -g $resourcegroup -n $vm2nic --location $location --subnet
 #create linux vm2 and associate with nic
 az vm create -g $resourcegroup -n $vm2name --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $vm2nic
 
-#auto-shutdown vm2 at 10:00 UTC
+#auto-shutdown vm2 at 22:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $vm2name --time 2200
   
 # create external load-balancer
