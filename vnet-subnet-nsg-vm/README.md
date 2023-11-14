@@ -13,6 +13,7 @@ A basic building block as per diagram; VNET, Subnet, NSG and a single VM
 * NSG rule provisioned to allow SSH admin access
 
 ## Deploy
+> The variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
 
 <pre lang="...">
 # define variables
