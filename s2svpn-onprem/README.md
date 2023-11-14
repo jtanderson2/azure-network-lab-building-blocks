@@ -11,7 +11,7 @@ tba
 * Provisions public IPs for VMs and NSG rule to allow SSH admin access (could use serial console instead!)
 
 ## Deploy OPNSense in 'OnPrem' VNET
-Use [this](https://github.com/dmauser/opnazure) excellent template from Daniel Mauser to deploy the OPNSense NVA in its' own VNET with Trusted and Untrusted subnets.
+Use [this](https://github.com/dmauser/opnazure) excellent template from Daniel Mauser to deploy the OPNsense NVA in its' own VNET with Trusted and Untrusted subnets.
 
 Hit the 'Deploy to Azure' button from the repo which just works out the box. The only parameter you need to add in the portal is the resource group; create a new group named **rg-vpn-001** then accept all other defaults then **Create**
 
