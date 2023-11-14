@@ -1,6 +1,11 @@
 # Azure Networking Lab Building Blocks
 
-Base building blocks for Azure lab/dev/test/poc environments provisioned with Azure CLI.
+Firing up base constructs in Azure for lab test/poc/training purposes can be time consuming (and expensive if you don't deprov/destroy when you're not using them!)
+
+These lab building blocks, specifically focussed around Azure networking, enable you quickly deploy and destroy some of these constructs to enable you to focus your time on the interesting stuff.
+
+Disclaimer: There's nothing revolutionary here; it's just a bunch of reusable Azure cli scripts, so it you're an experienced DevOps type with a mature automation strategy in place, this probably isn't for you! 😁
+
 
 In this repo:
 
