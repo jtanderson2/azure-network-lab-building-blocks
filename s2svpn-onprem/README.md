@@ -84,6 +84,9 @@ az network route-table create -g $resourcegroup -n $routetable
 # create an azure-side route
 az network route-table route create -g $resourcegroup --route-table-name $routetable -n OPN --next-hop-type VirtualAppliance --address-prefix 10.0.1.0/24 --next-hop-ip-address 10.4.255.4
 
+# associate azure-side route-table with subnet
+az network vnet subnet update -g $resourcegroup --vnet-name $vnet --name $snet --route-table $routetable
+
 # create azure-side gateway subnet
 az network vnet subnet create -g $resourcegroup -n GatewaySubnet --vnet-name $vnet --address-prefix $gwpfx
 
@@ -117,8 +120,11 @@ az vm auto-shutdown -g $resourcegroup -n $opnvmname --time 2200
 # create an onprem route-table
 az network route-table create -g $resourcegroup -n $opnroutetable
 
-# create an azure-side route
+# create an onprem route
 az network route-table route create -g $resourcegroup --route-table-name $opnroutetable -n DDD --next-hop-type VirtualAppliance --address-prefix 10.4.0.0/24 --next-hop-ip-address 10.0.1.4
+
+# associate onprem route-table with subnet
+az network vnet subnet update -g $resourcegroup --vnet-name $opnvnet --name $opnsnet --route-table $opnroutetable
 </pre>  
 
 ## Useful Commands
