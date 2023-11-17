@@ -14,7 +14,7 @@
 * NSG rule provisioned to allow HTTP testing through load-balancer public IP
 
 ## Deploy
-> The variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
+> Variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
 
 <pre lang="...">
 # define global variables
