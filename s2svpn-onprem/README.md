@@ -11,7 +11,7 @@ VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem r
 * Provisions public IPs for VMs and NSG rule to allow SSH admin access (could use serial console instead!)
 
 ## Build
-> Variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
+> Variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables sections
 
 **Global Variables**
 
