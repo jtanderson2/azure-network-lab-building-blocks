@@ -87,13 +87,15 @@ blah
 ## Useful Commands
 
 <pre lang="...">
-# get public ip of vms & lb
+# get public ip of vms & vpn gateway
 az network public-ip show -g $resourcegroup -n $publicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n $opnpublicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n $vpnpublicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n OPNsense-PublicIP --query "{address: ipAddress}"
 
-  
+#shows status of vpn gateway
+az network vnet-gateway list --resource-group $dddrg -o table
+ 
 # stop vm
 az vm deallocate -g $resourcegroup -n $vmname --no-wait
 az vm deallocate -g $resourcegroup -n $opnvmname --no-wait
@@ -106,7 +108,10 @@ az vm start -g $resourcegroup -n $opnvmname --no-wait
 ## Destroy
 
 <pre lang="...">
-# delete all resources
-az group delete -n $resourcegroup
+# delete all azure-side resources
+az group delete -n $dddrg
+
+# delete all 'pnprem' resources
+az group delete -n $eeerg
 </pre>
 
