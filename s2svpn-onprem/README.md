@@ -201,7 +201,7 @@ az vm start -g $resourcegroup -n $opnvmname --no-wait
 # delete all azure-side resources
 az group delete -n $dddrg
 
-# delete all 'pnprem' resources
+# delete all 'onprem' resources
 az group delete -n $eeerg
 </pre>
 
