@@ -79,6 +79,8 @@ az network public-ip create -n $dddvpnpublicip -g $dddrg --location $location --
 az network vnet-gateway create -g $dddrg -n $dddvpngw -l $location --public-ip-address $dddvpnpublicip --vnet $dddvnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --no-wait
 </pre>
 
+<NOTE: The VPN Gateway may take up to 30mins to create, but you can still continue with the next section in the meantime...>
+
 **Build 'OnPrem' Side**
 <pre lang="...">
 
