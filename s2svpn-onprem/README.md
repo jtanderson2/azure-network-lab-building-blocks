@@ -161,10 +161,10 @@ az network nic create -g $eeerg -n $eeecsrnic1 --location $location --subnet $ee
 # create an onprem route-table
 az network route-table create -g $eeerg -n $eeeroutetable
 
-# create an azure-side route
+# create an onprem route
 az network route-table route create -g $eeerg --route-table-name $eeeroutetable -n ddd-route --next-hop-type VirtualAppliance --address-prefix 10.4.0.0/24 --next-hop-ip-address 10.5.1.4
 
-# associate azure-side route-table with subnet
+# associate onprem route-table with subnet
 az network vnet subnet update -g $eeerg --vnet-name $eeevnet --name $eeesnet1 --route-table $eeeroutetable
 
 # accept csr license terms
