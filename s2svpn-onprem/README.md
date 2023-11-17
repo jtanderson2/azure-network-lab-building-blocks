@@ -11,6 +11,7 @@ VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem r
 * Provisions public IPs for VMs and NSG rule to allow SSH admin access (could use serial console instead!)
 
 ## Build
+> Variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
 
 **Global Variables**
 
@@ -79,7 +80,7 @@ az network public-ip create -n $dddvpnpublicip -g $dddrg --location $location --
 az network vnet-gateway create -g $dddrg -n $dddvpngw -l $location --public-ip-address $dddvpnpublicip --vnet $dddvnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --no-wait
 </pre>
 
-<NOTE: The VPN Gateway may take up to 30mins to create, but you can still continue with the next section in the meantime...>
+> NOTE: The VPN Gateway may take up to 30mins to create, but you can still continue with the next section in the meantime...
 
 **Build 'OnPrem' Side**
 <pre lang="...">
