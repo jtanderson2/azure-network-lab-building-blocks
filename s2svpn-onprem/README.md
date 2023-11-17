@@ -81,7 +81,89 @@ az network vnet-gateway create -g $dddrg -n $dddvpngw -l $location --public-ip-a
 
 **Build 'OnPrem' Side**
 <pre lang="...">
-blah
+
+# define onprem variables
+eeerg="rg-eee-001"
+eeevnet="vnet-eee-001"
+eeevnetpfx="10.5.0.0/16"
+eeesnet0="snet-eee-000"
+eeesnet1="snet-eee-001"
+eeesnet0pfx="10.5.0.0/24"
+eeesnet1pfx="10.5.1.0/24"
+eeensg0="nsg-eee-000"
+eeensg1="nsg-eee-001"
+eeenic="nic-vm-eee-001"
+eeecsrnic0="nic-csr-eee-000"
+eeecsrnic1="nic-csr-eee-001"
+eeeprivateip="10.5.1.10"
+eeecsrprivateip0="10.5.0.4"
+eeecsrprivateip1="10.5.1.4"
+eeepublicip="pip-vm-eee-001"
+eeecsrpublicip="pip-csr-eee-001"
+eeecsrname="csr-eee-001"
+eeevmname="vm-eee-001"
+eeeroutetable="route-eee"
+
+# create onprem resource group
+az group create -n $eeerg --location $location
+
+# create onprem vnet
+az network vnet create -g $eeerg -n $eeevnet --location $location --address-prefixes $eeevnetpfx
+
+# create onprem outside subnet
+az network vnet subnet create -g $eeerg -n $eeesnet0 --address-prefix $eeesnet0pfx --vnet-name $eeevnet
+
+# create onprem outside nsg
+az network nsg create -g $eeerg -n $eeensg0
+
+# create onprem outside nsg rule to allow ssh
+az network nsg rule create -g $eeerg --nsg-name $eeensg0 -n AllowSSH --priority 1000 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefix $eeesnet0pfx --destination-port-range 22 --access Allow --protocol Tcp --description "Allow SSH"
+
+# associate onprem outside nsg with subnet
+az network vnet subnet update -g $eeerg -n $eeesnet0 --vnet-name $eeevnet --network-security-group $eeensg0
+
+# create onprem inside subnet
+az network vnet subnet create -g $eeerg -n $eeesnet1 --address-prefix $eeesnet1pfx --vnet-name $eeevnet
+
+# create onprem inside nsg
+az network nsg create -g $eeerg -n $eeensg1
+
+# create onprem inside nsg rule to allow ssh
+az network nsg rule create -g $eeerg --nsg-name $eeensg1 -n AllowSSH --priority 1000 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefix $eeesnet1pfx --destination-port-range 22 --access Allow --protocol Tcp --description "Allow SSH"
+
+# associate onprem inside nsg with subnet
+az network vnet subnet update -g $eeerg -n $eeesnet1 --vnet-name $eeevnet --network-security-group $eeensg1
+
+# create onprem public ip for vm
+az network public-ip create -n $eeepublicip -g $eeerg --location $location --sku standard
+
+# create onprem nic for vm, create private ip and and assign public ip
+az network nic create -g $eeerg -n $eeenic --location $location --subnet $eeesnet1 --private-ip-address $eeeprivateip --vnet-name $eeevnet --public-ip-address $eeepublicip
+
+# create onprem linux vm and associate with nic
+az vm create -g $eeerg -n $eeevmname --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $eeenic
+
+# auto-shutdown onprem vm at 22:00 UTC
+az vm auto-shutdown -g $eeerg -n $eeevmname --time 2200
+
+# create onprem public ip for csr
+az network public-ip create -n $eeecsrpublicip -g $eeerg --location $location --sku standard
+
+# create onprem outside nic for csr, create private ip and and assign public ip
+az network nic create -g $eeerg -n $eeecsrnic0 --location $location --subnet $eeesnet0 --private-ip-address $eeecsrprivateip0 --vnet-name $eeevnet --public-ip-address $eeecsrpublicip
+
+# create onprem inside nic for csr and create private ip
+az network nic create -g $eeerg -n $eeecsrnic1 --location $location --subnet $eeesnet1 --private-ip-address $eeecsrprivateip1 --vnet-name $eeevnet
+
+# create an onprem route-table
+az network route-table create -g $eeerg -n $eeeroutetable
+
+# create an azure-side route
+az network route-table route create -g $eeerg --route-table-name $eeeroutetable -n ddd-route --next-hop-type VirtualAppliance --address-prefix 10.4.0.0/24 --next-hop-ip-address 10.5.1.4
+
+# associate azure-side route-table with subnet
+az network vnet subnet update -g $eeerg --vnet-name $eeevnet --name $eeesnet1 --route-table $eeeroutetable
+
 </pre>
 
 ## Useful Commands
