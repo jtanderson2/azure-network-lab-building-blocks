@@ -1,6 +1,6 @@
 ## Overview WIP
 
-VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem running an OPNsense firewall as the VPN termination device.
+VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem running an Cisco CSR router as the VPN termination device.
 
 ![](s2svpn-onprem.png)
 
@@ -174,25 +174,36 @@ az vm image terms accept --urn cisco:cisco-csr-1000v:17_03_07-byol:latest
 az vm create -g $eeerg --location $location --name $eeecsrname --size Standard_D2as_v4 --nics $eeecsrnic0 $eeecsrnic1  --image cisco:cisco-csr-1000v:17_03_07-byol:latest --admin-username $vmuser --admin-password $vmpassword --no-wait
 </pre>
 
+## Build VPN
+At this point you're ready to start building a VPN. Crack on ;)
+
 ## Useful Commands
 
 <pre lang="...">
-# get public ip of vms & vpn gateway
+# get public ip of azure-side vm
 az network public-ip show -g $dddrg -n $dddpublicip --query "{address: ipAddress}"
+
+# get public ip of onprem vm
 az network public-ip show -g $eeerg -n $eeepublicip --query "{address: ipAddress}"
-az network public-ip show -g $resourcegroup -n $vpnpublicip --query "{address: ipAddress}"
-az network public-ip show -g $resourcegroup -n OPNsense-PublicIP --query "{address: ipAddress}"
+
+# get public ip of azure-side vpn-gateway
+az network public-ip show -g $dddrg -n $dddvpnpublicip --query "{address: ipAddress}"
+
+# get public ip of onprem csr
+az network public-ip show -g $eeerg -n $eeecsrpublicip --query "{address: ipAddress}"
 
 # show status of vpn gateway
-az network vnet-gateway list --resource-group $dddrg -o table
+az network vnet-gateway list -g $dddrg -o table
  
-# stop vm
-az vm deallocate -g $resourcegroup -n $vmname --no-wait
-az vm deallocate -g $resourcegroup -n $opnvmname --no-wait
+# stop vms / csr
+az vm deallocate -g $dddrg -n $dddvmname --no-wait
+az vm deallocate -g $eeerg -n $eeevmname --no-wait
+az vm deallocate -g $eeerg -n $eeecsrname --no-wait
 
-# start vm
-az vm start -g $resourcegroup -n $vmname --no-wait
-az vm start -g $resourcegroup -n $opnvmname --no-wait
+# start vms / csr
+az vm start -g $dddrg -n $dddvmname --no-wait
+az vm start -g $eeerg -n $eeevmname --no-wait
+az vm start -g $eeerg -n $eeecsrname --no-wait
 </pre>
 
 ## Destroy
