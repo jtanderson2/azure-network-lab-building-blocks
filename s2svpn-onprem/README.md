@@ -167,6 +167,11 @@ az network route-table route create -g $eeerg --route-table-name $eeeroutetable 
 # associate azure-side route-table with subnet
 az network vnet subnet update -g $eeerg --vnet-name $eeevnet --name $eeesnet1 --route-table $eeeroutetable
 
+# accept csr license terms
+az vm image terms accept --urn cisco:cisco-csr-1000v:17_03_07-byol:latest
+
+# create csr router
+az vm create -g $eeerg --location $location --name $eeecsrname --size Standard_D2as_v4 --nics $eeecsrnic0 $eeecsrnic1  --image cisco:cisco-csr-1000v:17_03_07-byol:latest --admin-username $vmuser --admin-password $vmpassword --no-wait
 </pre>
 
 ## Useful Commands
