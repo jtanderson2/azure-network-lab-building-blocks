@@ -6,7 +6,7 @@ VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem r
 
 ## Notes
 
-* Variables defined at start of script, change as required
+* Variables defined at start of scripts, change as required
 * VMs provisioned with auto-shutdown at 22:00 UTC
 * Provisions public IPs for VMs and NSG rule to allow SSH admin access (could use serial console instead!)
 
