@@ -88,12 +88,12 @@ blah
 
 <pre lang="...">
 # get public ip of vms & vpn gateway
-az network public-ip show -g $resourcegroup -n $publicip --query "{address: ipAddress}"
-az network public-ip show -g $resourcegroup -n $opnpublicip --query "{address: ipAddress}"
+az network public-ip show -g $dddrg -n $dddpublicip --query "{address: ipAddress}"
+az network public-ip show -g $eeerg -n $eeepublicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n $vpnpublicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n OPNsense-PublicIP --query "{address: ipAddress}"
 
-#shows status of vpn gateway
+# show status of vpn gateway
 az network vnet-gateway list --resource-group $dddrg -o table
  
 # stop vm
