@@ -197,12 +197,24 @@ az network vnet peering create -g $gggrg -n ggg-hub-peer --vnet-name $gggvnet --
 </pre>
 
 **Add Routes to CSR**
+Login to the CSR Router and add static routes:
+
+<pre lang="...">
+! spoke1 static route
+ip route 10.6.0.0 255.255.255.0 10.100.1.1
+
+! spoke3 static route
+ip route 10.6.0.0 255.255.255.0 10.100.1.1
+</pre>
+
+You should noe be able to ping between spoke VMs via the CSR Router
 
 ## Useful Commands
 
 <pre lang="...">
 # show vnet peerings
 az network vnet peering list --resource-group $fffrg --vnet-name $fffvnet
+az network vnet peering list --resource-group $eeerg --vnet-name $eeevnet
 </pre>
 
 
