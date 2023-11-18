@@ -141,10 +141,10 @@ az network vnet subnet update -g $eeerg -n $eeesnet1 --vnet-name $eeevnet --netw
 az network public-ip create -n $eeepublicip -g $eeerg --location $location --sku standard
 
 # create onprem nic for vm, create private ip and and assign public ip
-az network nic create -g $eeerg -n $eeenic --location $location --subnet $eeesnet1 --private-ip-address $eeeprivateip --vnet-name $eeevnet --public-ip-address $eeepublicip
+az network nic create -g $eeerg -n $eeenic --location $location --subnet $eeesnet1 --private-ip-address $eeeprivateip --vnet-name $eeevnet --public-ip-address $eeepublicip 
 
 # create onprem linux vm and associate with nic
-az vm create -g $eeerg -n $eeevmname --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $eeenic
+az vm create -g $eeerg -n $eeevmname --image $vmimage --size $vmsize --admin-username $vmuser --admin-password $vmpassword --nics $eeenic 
 
 # auto-shutdown onprem vm at 22:00 UTC
 az vm auto-shutdown -g $eeerg -n $eeevmname --time 2200
@@ -153,10 +153,10 @@ az vm auto-shutdown -g $eeerg -n $eeevmname --time 2200
 az network public-ip create -n $eeecsrpublicip -g $eeerg --location $location --sku standard
 
 # create onprem outside nic for csr, create private ip and and assign public ip
-az network nic create -g $eeerg -n $eeecsrnic0 --location $location --subnet $eeesnet0 --private-ip-address $eeecsrprivateip0 --vnet-name $eeevnet --public-ip-address $eeecsrpublicip
+az network nic create -g $eeerg -n $eeecsrnic0 --location $location --subnet $eeesnet0 --private-ip-address $eeecsrprivateip0 --vnet-name $eeevnet --public-ip-address $eeecsrpublicip --ip-forwarding true
 
 # create onprem inside nic for csr and create private ip
-az network nic create -g $eeerg -n $eeecsrnic1 --location $location --subnet $eeesnet1 --private-ip-address $eeecsrprivateip1 --vnet-name $eeevnet
+az network nic create -g $eeerg -n $eeecsrnic1 --location $location --subnet $eeesnet1 --private-ip-address $eeecsrprivateip1 --vnet-name $eeevnet --ip-forwarding true
 
 # create an onprem route-table
 az network route-table create -g $eeerg -n $eeeroutetable
