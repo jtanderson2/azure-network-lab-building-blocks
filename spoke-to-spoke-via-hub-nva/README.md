@@ -218,4 +218,15 @@ az network vnet peering list --resource-group $fffrg --vnet-name $fffvnet
 az network vnet peering list --resource-group $eeerg --vnet-name $eeevnet
 </pre>
 
+## Destroy
 
+<pre lang="...">
+# delete spoke1  resources
+az group delete -n $fffrg
+
+# delete spoke2 resources
+az group delete -n $gggrg
+
+# delete hub resources
+az group delete -n $hubrg
+</pre>
