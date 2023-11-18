@@ -1,6 +1,6 @@
 ## Overview
 
-Spoke VNET routing via hub NVA.
+Spoke to spoke VNET routing via hub, using Cisco CSR Router as NVA.
 
 ![](spoke-to-spoke-via-hub-nva.png)
 
@@ -196,7 +196,7 @@ az network vnet peering create -g $fffrg -n fff-hub-peer --vnet-name $fffvnet --
 az network vnet peering create -g $gggrg -n ggg-hub-peer --vnet-name $gggvnet --remote-vnet $hubvnet --allow-vnet-access true --allow-forwarded-traffic true
 </pre>
 
-** Add Routes to CSR **
+**Add Routes to CSR**
 
 ## Useful Commands
 
