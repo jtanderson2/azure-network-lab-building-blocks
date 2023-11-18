@@ -188,6 +188,7 @@ az vm create -g $hubrg --location $location --name $hubcsrname --size Standard_D
 
 **Create VNET Peerings**
 
+>NOTE: This bit isn't working for some reason at the moment, so I created peerings from portal; will fix when I get time...
 <pre lang="...">
 # create spoke1 to hub vnet peer
 az network vnet peering create -g $fffrg -n fff-hub-peer --vnet-name $fffvnet --remote-vnet $hubvnet --allow-vnet-access true --allow-forwarded-traffic true
