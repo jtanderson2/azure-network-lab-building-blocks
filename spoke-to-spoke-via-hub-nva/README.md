@@ -207,7 +207,7 @@ ip route 10.6.0.0 255.255.255.0 10.100.1.1
 ip route 10.6.0.0 255.255.255.0 10.100.1.1
 </pre>
 
-You should noe be able to ping between spoke VMs via the CSR Router
+You should now be able to ping between spoke VMs via the CSR Router
 
 ## Useful Commands
 
