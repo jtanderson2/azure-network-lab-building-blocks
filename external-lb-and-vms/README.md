@@ -132,7 +132,7 @@ az vm start -g $resourcegroup -n $vm2name --no-wait
 
 <pre lang="...">
 # delete all resources
-az group delete -n $resourcegroup
+az group delete -n $resourcegroup --no-wait
 </pre>
 
 
