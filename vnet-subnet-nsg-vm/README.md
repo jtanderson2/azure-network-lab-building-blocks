@@ -82,6 +82,6 @@ az vm list-sizes --location $location --output table
 ## Destroy
 <pre lang="...">
 # delete all resources
-az group delete -n $resourcegroup
+az group delete -n $resourcegroup --no-wait
 </pre>
 
