@@ -277,12 +277,12 @@ az vm start -g $hubrg -n $hubcsrname --no-wait
 ## Destroy
 
 <pre lang="...">
-# delete spoke1  resources
-az group delete -n $fffrg
+# delete spoke1  resources 
+az group delete -n $fffrg --no-wait
 
-# delete spoke2 resources
-az group delete -n $gggrg
+# delete spoke2 resources 
+az group delete -n $gggrg --no-wait
 
 # delete hub resources
-az group delete -n $hubrg
+az group delete -n $hubrg --no-wait
 </pre>
