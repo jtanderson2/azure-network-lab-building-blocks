@@ -210,6 +210,36 @@ ip route 10.6.0.0 255.255.255.0 10.100.1.1
 
 You should now be able to ping between spoke VMs via the CSR Router
 
+## Route Spoke Internet via Hub 
+To route spoke internet traffic via the hub NVA there are 2 additional steps
+>NOTE: You will lose access to the spoke VMs' public IPs at this point, so will need to test via the serial consoles
+
+**Add Default Route to Spoke Route Tables**
+
+<pre lang="...">
+# spoke 1 default route
+az network route-table route create -g $fffrg --route-table-name $fffroutetable -n default --next-hop-type VirtualAppliance --address-prefix 0.0.0.0/0 --next-hop-ip-address 10.100.1.4
+  
+# spoke 2 default route
+az network route-table route create -g $gggrg --route-table-name $gggroutetable -n default --next-hop-type VirtualAppliance --address-prefix 0.0.0.0/0 --next-hop-ip-address 10.100.1.4
+</pre> 
+
+**NAT Overload on CSR**
+
+<pre lang="...">
+
+interface g1
+ ip nat outside
+!
+interface g2
+ ip nat inside
+!
+access-list 100 permit ip 10.6.0.0 0.0.255.255 any
+access-list 100 permit ip 10.7.0.0 0.0.255.255 any
+!
+ip nat inside source list 100 interface g1 overload
+</pre>
+
 ## Useful Commands
 
 <pre lang="...">
