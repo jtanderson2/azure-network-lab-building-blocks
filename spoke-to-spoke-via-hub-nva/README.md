@@ -216,6 +216,26 @@ You should now be able to ping between spoke VMs via the CSR Router
 # show vnet peerings
 az network vnet peering list --resource-group $fffrg --vnet-name $fffvnet
 az network vnet peering list --resource-group $eeerg --vnet-name $eeevnet
+
+# get public ip of spoke1 vm
+az network public-ip show -g $fffrg -n $fffpublicip --query "{address: ipAddress}"
+
+# get public ip of spoke2 vm
+az network public-ip show -g $gggrg -n $gggpublicip --query "{address: ipAddress}"
+
+# get public ip of hub csr
+az network public-ip show -g $hubrg -n $hubcsrpublicip --query "{address: ipAddress}"
+
+# stop vms / csr
+az vm deallocate -g $fffrg -n $fffvmname --no-wait
+az vm deallocate -g $gggrg -n $gggvmname --no-wait
+az vm deallocate -g $hubrg -n $hubcsrname --no-wait
+
+# start vms / csr
+az vm start -g $fffrg -n $fffvmname --no-wait
+az vm start -g $gggrg -n $gggvmname --no-wait
+az vm start -g $hubrg -n $hubcsrname --no-wait
+
 </pre>
 
 ## Destroy
