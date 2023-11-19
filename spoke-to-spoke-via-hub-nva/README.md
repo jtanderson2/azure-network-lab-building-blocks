@@ -1,6 +1,6 @@
 ## Overview
 
-Spoke to spoke VNET routing via hub, using Cisco CSR Router as NVA.
+Spoke to spoke VNET routing via hub, using Cisco CSR Router as NVA. Optionally route internet traffic from spokes through hub NVA.
 
 ![](spoke-to-spoke-via-hub-nva.png)
 
