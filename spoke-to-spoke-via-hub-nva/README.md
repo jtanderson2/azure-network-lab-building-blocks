@@ -224,12 +224,6 @@ az network route-table route create -g $fffrg --route-table-name $fffroutetable 
 az network route-table route create -g $gggrg --route-table-name $gggroutetable -n default --next-hop-type VirtualAppliance --address-prefix 0.0.0.0/0 --next-hop-ip-address 10.100.1.4
 </pre> 
 
-Internet access from the VMs should continue to work, but is now via the hub NVA. You can verify the CSR public IP is being used by the spoke VMs on the internet by running the following command at the serial console:
-
-<pre lang="...">
-dig +short myip.opendns.com @resolver1.opendns.com
-</pre> 
-
 **NAT Overload on CSR**
 
 <pre lang="...">
@@ -245,6 +239,12 @@ access-list 100 permit ip 10.7.0.0 0.0.255.255 any
 !
 ip nat inside source list 100 interface g1 overload
 </pre>
+
+Internet access from the VMs should continue to work, but is now via the hub NVA. You can verify the CSR public IP is being used by the spoke VMs on the internet by running the following command at the serial console:
+
+<pre lang="...">
+dig +short myip.opendns.com @resolver1.opendns.com
+</pre> 
 
 ## Useful Commands
 
