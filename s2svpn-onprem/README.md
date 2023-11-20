@@ -175,8 +175,8 @@ az vm create -g $eeerg --location $location --name $eeecsrname --size Standard_D
 </pre>
 
 ## Build VPN
-This example will build a simple, statically routed Active/Standby VPN connection to the onprem CSR. There are many different deployment options for Azure VPNs, read the docs:
-
+This example builds a simple Active/Standby VPN connection to the onprem CSR with static routing. There are many other high availability deployment patterns for Azure VPNs, read the docs:
+https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-highlyavailable
 
 ## Useful Commands
 
