@@ -82,7 +82,7 @@ az network vnet-gateway create -g $dddrg -n $dddvpngw -l $location --public-ip-a
 
 > NOTE: The VPN Gateway may take up to 30mins to create, but you can still continue with the next section in the meantime...
 
-**Build 'OnPrem' Side**
+**Build OnPrem Side**
 <pre lang="...">
 
 # define onprem variables
@@ -179,7 +179,8 @@ This example builds a simple Active/Standby VPN connection to the onprem CSR wit
 https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-highlyavailable
 
 **Build Connection on Azure Side**
-Replace CSR-PUBLIC-IP with the public IP assigned to the 'OnPrem' CSR.
+
+Replace CSR-PUBLIC-IP with the public IP assigned to the onprem CSR.
 
 <pre lang="...">
 # define additional azure-side variables (variables defined above are also used)
@@ -193,7 +194,8 @@ az network local-gateway create -g $dddrg -n $dddvpnlgw --location $location --g
 az network vpn-connection create -g $dddrg -n $dddvpnconn --location $location --vnet-gateway1 $dddvpngw --local-gateway $dddvpnlgw --shared-key $vmpassword
 </pre> 
 
-**Build Connection on 'OnPrem CSR**
+**Build Connection on OnPrem CSR**
+
 Login to the CSR using its' public IP and configure the following. Replace VPN-PUBLIC-IP with the public IP assigned to the Azure VPN Gateway.
 
 <pre lang="...">
