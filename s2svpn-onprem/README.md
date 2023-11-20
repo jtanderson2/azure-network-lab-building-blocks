@@ -265,6 +265,10 @@ az network vnet-gateway list -g $dddrg -o table
 
 # check azure-side vpn connection status; look for ' "connectionStatus": "Connected" ' in the output
 az network vpn-connection show -n $dddvpnconn -g $dddrg
+
+# show effective routes of vms
+az network nic show-effective-route-table -g $dddrg -n $dddnic --output table
+az network nic show-effective-route-table -g $eeerg -n $eeenic --output table
  
 # stop vms / csr
 az vm deallocate -g $dddrg -n $dddvmname --no-wait
