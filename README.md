@@ -17,6 +17,4 @@ In this repo:
 
 &nbsp;
 
-&nbsp;
-
 ![](azure-lab-building-block.png)
