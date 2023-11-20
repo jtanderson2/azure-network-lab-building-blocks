@@ -237,6 +237,10 @@ interface Tunnel0
 ip route 10.4.0.0 255.255.255.255 Tunnel1
 </pre> 
 
+You should now be able ping between Azure and onprem VMs. See command in next section for checking the connection status, and it should also show as 'Connected' in the portal (sometimes takes a few minutes to update there). If the connection doesn't come up, read the dcos for VPN troubleshooting:
+https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-troubleshoot-site-to-site-cannot-connect
+
+
 ## Useful Commands
 
 <pre lang="...">
