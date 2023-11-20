@@ -196,7 +196,7 @@ az network public-ip show -g $eeerg -n $eeecsrpublicip --query "{address: ipAddr
 # show status of azure-side vpn gateway
 az network vnet-gateway list -g $dddrg -o table
 
-# note, you can also check the status of a vpn gateway by going to https://<vpn-gw-public-ip>:8081/healthprobe from a browser; if an XML page is returned, the gateway is healthy
+# note, you can also check the status of a vpn gateway by going to https://VPN-GW-PUBLIC-IP>:8081/healthprobe from a browser; if an XML page is returned, the gateway is healthy
 
 # check azure-side vpn connection status; look for ' "connectionStatus": "Connected" ' in the output
 az network vpn-connection show -n $dddvpnconn -g $dddrg
