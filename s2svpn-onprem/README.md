@@ -175,7 +175,8 @@ az vm create -g $eeerg --location $location --name $eeecsrname --size Standard_D
 </pre>
 
 ## Build VPN
-At this point you're ready to start building a VPN. Crack on ;)
+This example will build a simple, statically routed Active/Standby VPN connection to the onprem CSR. There are many different deployment options for Azure VPNs, read the docs:
+
 
 ## Useful Commands
 
@@ -192,8 +193,13 @@ az network public-ip show -g $dddrg -n $dddvpnpublicip --query "{address: ipAddr
 # get public ip of onprem csr
 az network public-ip show -g $eeerg -n $eeecsrpublicip --query "{address: ipAddress}"
 
-# show status of vpn gateway
+# show status of azure-side vpn gateway
 az network vnet-gateway list -g $dddrg -o table
+
+# note, you can also check the status of a vpn gateway by going to https://<vpn-gw-public-ip>:8081/healthprobe from a browser; if an XML page is returned, the gateway is healthy
+
+# check azure-side vpn connection status; look for ' "connectionStatus": "Connected" ' in the output
+az network vpn-connection show -n $dddvpnconn -g $dddrg
  
 # stop vms / csr
 az vm deallocate -g $dddrg -n $dddvmname --no-wait
