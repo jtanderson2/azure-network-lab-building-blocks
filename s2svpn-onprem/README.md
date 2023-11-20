@@ -209,10 +209,10 @@ az vm start -g $eeerg -n $eeecsrname --no-wait
 ## Destroy
 
 <pre lang="...">
-# delete all azure-side resources
+# delete azure-side resources
 az group delete -n $dddrg --no-wait
 
-# delete all 'onprem' resources
+# delete onprem resources
 az group delete -n $eeerg --no-wait
 </pre>
 
