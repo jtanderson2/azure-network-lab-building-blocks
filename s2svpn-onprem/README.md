@@ -178,6 +178,63 @@ az vm create -g $eeerg --location $location --name $eeecsrname --size Standard_D
 This example builds a simple Active/Standby VPN connection to the onprem CSR with static routing. There are many other high availability deployment patterns for Azure VPNs, read the docs:
 https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-highlyavailable
 
+**Build Connection on Azure Side**
+Replace CSR-PUBLIC-IP with the public IP assigned to the 'OnPrem' CSR.
+
+<pre lang="...">
+# define additional azure-side variables (variables defined above are also used)
+dddvpnlgw="lgw-vpn-ddd-001"
+dddvpnconn="con-vpn-ddd-001"
+
+# create azure-side local gateway
+az network local-gateway create -g $dddrg -n $dddvpnlgw --location $location --gateway-ip-address CSR-PUBLIC-IP --address-prefixes $eeesnet1pfx
+
+# create azure-side vpn connection 
+az network vpn-connection create -g $dddrg -n $dddvpnconn --location $location --vnet-gateway1 $dddvpngw --local-gateway $dddvpnlgw --shared-key $vmpassword
+</pre> 
+
+**Build Connection on 'OnPrem CSR**
+Login to the CSR using its' public IP and configure the following. Replace VPN-PUBLIC-IP with the public IP assigned to the Azure VPN Gateway.
+
+<pre lang="...">
+crypto ikev2 proposal az-PROPOSAL 
+ encryption aes-cbc-256 aes-cbc-128 3des
+ integrity sha1
+ group 2
+!
+crypto ikev2 policy az-POLICY 
+ proposal az-PROPOSAL
+!
+crypto ikev2 keyring key-peer1
+ peer azvpn1
+  address VPN-PUBLIC-IP
+  pre-shared-key Msft123Msft123
+!
+crypto ikev2 profile az-PROFILE1
+ match address local interface GigabitEthernet1
+ match identity remote address VPN-PUBLIC-IP 255.255.255.255 
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local key-peer1
+!
+crypto ipsec transform-set az-IPSEC-PROPOSAL-SET esp-aes 256 esp-sha-hmac 
+ mode tunnel
+!
+crypto ipsec profile az-VTI1
+ set transform-set az-IPSEC-PROPOSAL-SET 
+ set ikev2-profile az-PROFILE1
+!
+interface Tunnel0
+ ip address 172.31.0.2 255.255.255.255
+ ip tcp adjust-mss 1350
+ tunnel source GigabitEthernet1
+ tunnel mode ipsec ipv4
+ tunnel destination VPN-PUBLIC-IP
+ tunnel protection ipsec profile az-VTI1
+!
+ip route 10.4.0.0 255.255.255.255 Tunnel1
+</pre> 
+
 ## Useful Commands
 
 <pre lang="...">
