@@ -14,4 +14,6 @@ In this repo:
 * [**S2S VPN to OnPrem**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/s2svpn-onprem)
 * [**Spoke to Spoke Routing via Hub NVA**](https://github.com/jtanderson2/azure-network-lab-building-blocks/tree/main/spoke-to-spoke-via-hub-nva)
 
+
+
 ![](azure-lab-building-block.png)
