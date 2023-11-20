@@ -277,6 +277,9 @@ az vm start -g $eeerg -n $eeevmname --no-wait
 az vm start -g $eeerg -n $eeecsrname --no-wait
 </pre>
 
+Useful article about supported and default crypto settings on Azure VPN Gateways, plus compatibilty with other vendors:
+https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-devices
+
 ## Destroy
 
 <pre lang="...">
