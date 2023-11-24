@@ -62,7 +62,7 @@ az vm auto-shutdown -g $resourcegroup -n $vmname --time 2200
 ```
 
 ## Useful Commands
-<pre lang="...">
+```
 # get public ip of vm
 az network public-ip show -g $resourcegroup -n $publicip --query "{address: ipAddress}"
 
@@ -77,11 +77,11 @@ az vm image list --location $location --output table
 
 # show vm sizes available in your region; the 'Name' field in the output is what to use as the --size variable when creating a vm
 az vm list-sizes --location $location --output table
-</pre>
+```
 
 ## Destroy
-<pre lang="...">
+```
 # delete all resources
 az group delete -n $resourcegroup --no-wait
-</pre>
+```
 
