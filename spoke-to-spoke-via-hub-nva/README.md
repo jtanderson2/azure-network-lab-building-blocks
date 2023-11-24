@@ -198,6 +198,7 @@ az network vnet peering create -g $gggrg -n ggg-hub-peer --vnet-name $gggvnet --
 ```
 
 **Add Routes to CSR**
+
 Login to the CSR Router and add static routes:
 
 ```
