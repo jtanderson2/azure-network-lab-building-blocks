@@ -15,7 +15,7 @@ A basic building block as per diagram; VNET, Subnet, NSG and a single VM
 ## Deploy
 > Variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
 
-<pre lang="...">
+```
 # define variables
 resourcegroup="rg-bbb-001"
 location="uksouth"
@@ -59,7 +59,7 @@ az vm create -g $resourcegroup -n $vmname --image $vmimage --size $vmsize --admi
 
 #auto-shutdown vm at 22:00 UTC
 az vm auto-shutdown -g $resourcegroup -n $vmname --time 2200
-</pre>
+```
 
 ## Useful Commands
 <pre lang="...">
