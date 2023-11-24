@@ -16,7 +16,7 @@
 ## Deploy
 > Variables are only persistent within the azcli session. If you need you come back to this in a later session, rerun the variables section
 
-<pre lang="...">
+```
 # define global variables
 resourcegroup="rg-ccc-001"
 location="uksouth"
@@ -107,13 +107,13 @@ SSH to each VM and run the following command (or use the serial console from the
 
 <pre lang="...">
 sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd
-</pre>
+```
 
 This will take a little while to run through. Once complete, the Apache start page should be available via the Load-Balancers' public IP, load-balanced between the 2 VMs.
 
 ## Useful Commands
 
-<pre lang="...">
+```
 # get public ip of vms & lb
 az network public-ip show -g $resourcegroup -n $vm1publicip --query "{address: ipAddress}"
 az network public-ip show -g $resourcegroup -n $vm2publicip --query "{address: ipAddress}"
@@ -126,13 +126,13 @@ az vm deallocate -g $resourcegroup -n $vm2name --no-wait
 # start vm
 az vm start -g $resourcegroup -n $vm1name --no-wait
 az vm start -g $resourcegroup -n $vm2name --no-wait
-</pre>
+```
 
 ## Destroy
 
-<pre lang="...">
+```
 # delete all resources
 az group delete -n $resourcegroup --no-wait
-</pre>
+```
 
 
