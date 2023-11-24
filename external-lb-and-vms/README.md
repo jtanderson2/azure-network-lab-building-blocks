@@ -105,7 +105,7 @@ az network lb rule create -g $resourcegroup --lb-name $elbname -n $elbrule --pro
 ## Install Web Server on VMs
 SSH to each VM and run the following command (or use the serial console from the portal):
 
-<pre lang="...">
+```
 sudo yum -y update && sudo yum -y install httpd && sudo systemctl start httpd
 ```
 
