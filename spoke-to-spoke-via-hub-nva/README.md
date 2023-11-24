@@ -15,18 +15,18 @@ Spoke to spoke VNET routing via hub, using Cisco CSR Router as NVA. Optionally r
 
 **Global Variables**
 
-<pre lang="...">
+```
 # define global variables
 location="uksouth"
 vmimage="OpenLogic:CentOS:7.5:latest"
 vmsize="Standard_B1ls"
 vmuser="azureuser"
 vmpassword="Msft123Msft123"
-</pre>
+```
 
 **Build Spoke 1**
 
-<pre lang="...">
+```
 # define spoke1 variables
 fffrg="rg-fff-001"
 fffvnet="vnet-fff-001"
@@ -75,11 +75,11 @@ az network route-table route create -g $fffrg --route-table-name $fffroutetable 
 
 # associate spoke1 route-table with subnet
 az network vnet subnet update -g $fffrg --vnet-name $fffvnet --name $fffsnet --route-table $fffroutetable
-</pre>
+```
 
 **Build Spoke 2**
 
-<pre lang="...">
+```
 # define spoke2 variables
 gggrg="rg-ggg-001"
 gggvnet="vnet-ggg-001"
@@ -128,11 +128,11 @@ az network route-table route create -g $gggrg --route-table-name $gggroutetable 
 
 # associate spoke2 route-table with subnet
 az network vnet subnet update -g $gggrg --vnet-name $gggvnet --name $gggsnet --route-table $gggroutetable
-</pre>
+```
 
 **Build Hub and NVA**
 
-<pre lang="...">
+```
 # define hub variables
 hubrg="rg-hub-001"
 hubvnet="vnet-hub-001"
@@ -184,29 +184,29 @@ az vm image terms accept --urn cisco:cisco-csr-1000v:17_03_07-byol:latest
 
 # create csr router
 az vm create -g $hubrg --location $location --name $hubcsrname --size Standard_D2as_v4 --nics $hubcsrnic0 $hubcsrnic1  --image cisco:cisco-csr-1000v:17_03_07-byol:latest --admin-username $vmuser --admin-password $vmpassword --no-wait
-</pre>
+```
 
 **Create VNET Peerings**
 
 >NOTE: This bit isn't working for some reason at the moment, so I created peerings from portal; will fix when I get time...
-<pre lang="...">
+```
 # create spoke1 to hub vnet peer
 az network vnet peering create -g $fffrg -n fff-hub-peer --vnet-name $fffvnet --remote-vnet $hubvnet --allow-vnet-access true --allow-forwarded-traffic true
 
 # create spoke2 to hub vnet peer
 az network vnet peering create -g $gggrg -n ggg-hub-peer --vnet-name $gggvnet --remote-vnet $hubvnet --allow-vnet-access true --allow-forwarded-traffic true
-</pre>
+```
 
 **Add Routes to CSR**
 Login to the CSR Router and add static routes:
 
-<pre lang="...">
+```
 ! spoke1 static route
 ip route 10.6.0.0 255.255.255.0 10.100.1.1
 
 ! spoke3 static route
 ip route 10.6.0.0 255.255.255.0 10.100.1.1
-</pre>
+```
 
 You should now be able to ping between spoke VMs via the CSR Router
 
@@ -216,17 +216,17 @@ To route spoke internet traffic via the hub NVA there are 2 additional steps
 
 **Add Default Route to Spoke Route Tables**
 
-<pre lang="...">
+```
 # spoke 1 default route
 az network route-table route create -g $fffrg --route-table-name $fffroutetable -n default --next-hop-type VirtualAppliance --address-prefix 0.0.0.0/0 --next-hop-ip-address 10.100.1.4
   
 # spoke 2 default route
 az network route-table route create -g $gggrg --route-table-name $gggroutetable -n default --next-hop-type VirtualAppliance --address-prefix 0.0.0.0/0 --next-hop-ip-address 10.100.1.4
-</pre> 
+```
 
 **NAT Overload on CSR**
 
-<pre lang="...">
+```
 
 interface g1
  ip nat outside
@@ -238,17 +238,17 @@ access-list 100 permit ip 10.6.0.0 0.0.255.255 any
 access-list 100 permit ip 10.7.0.0 0.0.255.255 any
 !
 ip nat inside source list 100 interface g1 overload
-</pre>
+```
 
 Internet access from the VMs should continue to work, but is now via the hub NVA. You can verify the CSR public IP is being used by the spoke VMs on the internet by running the following command at the serial console:
 
-<pre lang="...">
+```
 dig +short myip.opendns.com @resolver1.opendns.com
-</pre> 
+```
 
 ## Useful Commands
 
-<pre lang="...">
+```
 # show vnet peerings
 az network vnet peering list --resource-group $fffrg --vnet-name $fffvnet
 az network vnet peering list --resource-group $eeerg --vnet-name $eeevnet
@@ -272,11 +272,11 @@ az vm start -g $fffrg -n $fffvmname --no-wait
 az vm start -g $gggrg -n $gggvmname --no-wait
 az vm start -g $hubrg -n $hubcsrname --no-wait
 
-</pre>
+```
 
 ## Destroy
 
-<pre lang="...">
+```
 # delete spoke1  resources 
 az group delete -n $fffrg --no-wait
 
@@ -285,4 +285,4 @@ az group delete -n $gggrg --no-wait
 
 # delete hub resources
 az group delete -n $hubrg --no-wait
-</pre>
+```
