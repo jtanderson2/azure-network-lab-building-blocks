@@ -15,18 +15,18 @@ VNET Gateway configured for a route-based VPN. A second VNET simulates on-prem r
 
 **Global Variables**
 
-<pre lang="...">
+```
 # define global variables
 location="uksouth"
 vmimage="OpenLogic:CentOS:7.5:latest"
 vmsize="Standard_B1ls"
 vmuser="azureuser"
 vmpassword="Msft123Msft123"
-</pre>
+```
 
 **Build Azure Side**
 
-<pre lang="...">
+```
 # define azure-side variables
 dddrg="rg-ddd-001"
 dddvnet="vnet-ddd-001"
@@ -78,12 +78,12 @@ az network public-ip create -n $dddvpnpublicip -g $dddrg --location $location --
 
 # create azure-side vpn gateway
 az network vnet-gateway create -g $dddrg -n $dddvpngw -l $location --public-ip-address $dddvpnpublicip --vnet $dddvnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --no-wait
-</pre>
+```
 
 > NOTE: The VPN Gateway may take up to 30mins to create, but you can still continue with the next section in the meantime...
 
 **Build OnPrem Side**
-<pre lang="...">
+```
 
 # define onprem variables
 eeerg="rg-eee-001"
@@ -172,7 +172,7 @@ az vm image terms accept --urn cisco:cisco-csr-1000v:17_03_07-byol:latest
 
 # create csr router
 az vm create -g $eeerg --location $location --name $eeecsrname --size Standard_D2as_v4 --nics $eeecsrnic0 $eeecsrnic1  --image cisco:cisco-csr-1000v:17_03_07-byol:latest --admin-username $vmuser --admin-password $vmpassword --no-wait
-</pre>
+```
 
 ## Build VPN
 This example builds a simple Active/Standby VPN connection to the onprem CSR with static routing. There are many other high availability deployment patterns for Azure VPNs, read the docs:
@@ -182,7 +182,7 @@ https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-highlyavailable
 
 Replace CSR-PUBLIC-IP with the public IP assigned to the onprem CSR.
 
-<pre lang="...">
+```
 # define additional azure-side variables (variables defined above are also used)
 dddvpnlgw="lgw-vpn-ddd-001"
 dddvpnconn="con-vpn-ddd-001"
@@ -192,13 +192,13 @@ az network local-gateway create -g $dddrg -n $dddvpnlgw --location $location --g
 
 # create azure-side vpn connection 
 az network vpn-connection create -g $dddrg -n $dddvpnconn --location $location --vnet-gateway1 $dddvpngw --local-gateway $dddvpnlgw --shared-key $vmpassword
-</pre> 
+```
 
 **Build Connection on OnPrem CSR**
 
 Login to the CSR using its' public IP and configure the following. Replace VPN-PUBLIC-IP with the public IP assigned to the Azure VPN Gateway.
 
-<pre lang="...">
+```
 crypto ikev2 proposal az-PROPOSAL 
  encryption aes-cbc-256 aes-cbc-128 3des
  integrity sha1
@@ -235,7 +235,7 @@ interface Tunnel0
  tunnel protection ipsec profile az-VTI1
 !
 ip route 10.4.0.0 255.255.255.255 Tunnel1
-</pre> 
+```
 
 **Testing**
 
@@ -245,7 +245,7 @@ https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-troubleshoot-sit
 
 ## Useful Commands
 
-<pre lang="...">
+```
 # get public ip of azure-side vm
 az network public-ip show -g $dddrg -n $dddpublicip --query "{address: ipAddress}"
 
@@ -279,18 +279,18 @@ az vm deallocate -g $eeerg -n $eeecsrname --no-wait
 az vm start -g $dddrg -n $dddvmname --no-wait
 az vm start -g $eeerg -n $eeevmname --no-wait
 az vm start -g $eeerg -n $eeecsrname --no-wait
-</pre>
+```
 
 Useful article about supported and default crypto settings on Azure VPN Gateways, plus compatibility with other vendors:
 https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-devices
 
 ## Destroy
 
-<pre lang="...">
+```
 # delete azure-side resources
 az group delete -n $dddrg --no-wait
 
 # delete onprem resources
 az group delete -n $eeerg --no-wait
-</pre>
+```
 
