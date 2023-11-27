@@ -100,7 +100,7 @@ az network lb probe create -g $resourcegroup --lb-name $elbname -n $elbprobe1 --
 
 # configure load-balancer rule
 az network lb rule create -g $resourcegroup --lb-name $elbname -n $elbrule --protocol Tcp --frontend-ip $elbfrontend --frontend-port 80 --backend-pool-name $elbbackend --backend-port 80
-</pre>
+```
 
 ## Install Web Server on VMs
 SSH to each VM and run the following command (or use the serial console from the portal):
