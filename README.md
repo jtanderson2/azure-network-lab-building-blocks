@@ -2,7 +2,7 @@
 
 Nothing revolutionary here; just a bunch of reusable Azure cli scripts to quickly deploy and destroy some base constructs to enable you to focus your time on the interesting stuff.
 
-All building blocks 'stack' out of the box - that is, the pre-defined variables provided there will never be an overlap in naming or address space when connecting them together to form more complex topologies.
+All building blocks 'stack' out of the box - that is, using the pre-defined variables provided there will never be an overlap in naming or address space when connecting them together to form more complex topologies.
 
 In this repo:
 
